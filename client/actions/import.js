@@ -1,0 +1,2 @@
+export const IMPORT = 'IMPORT'
+export const UPDATE_EXTENSION = 'UPDATE_EXTRENSION'
