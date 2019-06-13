@@ -9,7 +9,7 @@ const importing = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case IMPORT:
       //checking the extension state, and carry out import function
-      return state.extensions[action.extensions].import(action.params)
+      state.extensions[action.extension].import(action.params)
 
     case UPDATE_EXTENSION:
       return {
