@@ -9,7 +9,14 @@ const importing = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case IMPORT:
       //checking the extension state, and carry out import function
-      state.extensions[action.extension].import(action.params)
+      const json = state.extensions[action.extension].import(action.params)
+      document.dispatchEvent(
+        new CustomEvent('imported', {
+          detail: {
+            json
+          }
+        })
+      )
 
     case UPDATE_EXTENSION:
       return {
