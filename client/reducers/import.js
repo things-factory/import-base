@@ -1,23 +1,11 @@
 import { IMPORT, UPDATE_EXTENSION } from '../actions/import'
 
 const INITIAL_STATE = {
-  //extensions object will be updated using UPDATE_EXTENSION when ui-<<type>> is bootstrapping
   extensions: {}
 }
 
 const importing = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case IMPORT:
-      //checking the extension state, and carry out import function
-      const json = state.extensions[action.extension].import(action.params)
-      document.dispatchEvent(
-        new CustomEvent('imported', {
-          detail: {
-            json
-          }
-        })
-      )
-
     case UPDATE_EXTENSION:
       return {
         ...state,
@@ -26,6 +14,11 @@ const importing = (state = INITIAL_STATE, action) => {
           ...action.extensions
         }
       }
+
+    case IMPORT:
+      let extension = action.importable.extension
+      const records = state.extensions[extension].import(action.data)
+      action.importable.handler(records)
 
     default:
       return state
