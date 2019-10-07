@@ -16,9 +16,11 @@ const importing = (state = INITIAL_STATE, action) => {
       }
 
     case IMPORT:
-      let extension = action.importable.extension
-      const records = state.extensions[extension].import(action.data)
-      action.importable.handler(records)
+      ;(async function() {
+        let extension = action.importable.extension
+        const records = await state.extensions[extension].import(action.data)
+        action.importable.handler(records)
+      })()
 
     default:
       return state
